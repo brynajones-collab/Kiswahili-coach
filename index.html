@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kiswahili Coach</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="logo">🗣️</span>
+      <h1>Kiswahili Coach</h1>
+    </div>
+    <div class="controls">
+      <select id="deckSelect" aria-label="Choose deck"></select>
+      <button id="addTermBtn" class="ghost">＋ Add Term</button>
+      <button id="themeToggle" class="ghost" title="Toggle theme">🌗</button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Practice modes">
+    <button class="tab active" data-tab="flashcards" role="tab" aria-selected="true">Flashcards</button>
+    <button class="tab" data-tab="matching" role="tab" aria-selected="false">Matching</button>
+    <button class="tab" data-tab="prompts" role="tab" aria-selected="false">Prompts</button>
+    <button class="tab" data-tab="progress" role="tab" aria-selected="false">Progress</button>
+  </nav>
+
+  <main>
+    <!-- Flashcards -->
+    <section id="flashcards" class="panel active" role="tabpanel" aria-labelledby="Flashcards">
+      <div class="card-stack">
+        <div id="flashcard" class="card" tabindex="0" aria-live="polite">
+          <div class="front">
+            <div class="pill">Swahili</div>
+            <div class="term" id="fcTerm">karibu</div>
+            <div class="hint" id="fcHint">Tap to reveal</div>
+          </div>
+          <div class="back">
+            <div class="pill">English</div>
+            <div class="term" id="fcDef">welcome</div>
+            <div class="example" id="fcExample">Karibu nyumbani!</div>
+          </div>
+        </div>
+      </div>
+      <div class="fc-actions">
+        <button id="againBtn" class="danger">Again</button>
+        <button id="speakBtn" class="ghost">🔈 Speak</button>
+        <button id="goodBtn" class="primary">Got it</button>
+      </div>
+      <div class="fc-status">
+        <span id="fcCount">1 / 10</span>
+        <span>•</span>
+        <span id="fcStreak">Streak: 0</span>
+      </div>
+    </section>
+
+    <!-- Matching -->
+    <section id="matching" class="panel" role="tabpanel" aria-labelledby="Matching">
+      <div class="match-controls">
+        <button id="newMatch" class="primary">New Puzzle</button>
+        <label>Pairs: <input type="number" id="pairCount" value="6" min="3" max="10"/></label>
+        <span id="matchTimer">00:00</span>
+      </div>
+      <div id="matchGrid" class="grid" aria-live="polite"></div>
+    </section>
+
+    <!-- Prompts -->
+    <section id="prompts" class="panel" role="tabpanel" aria-labelledby="Prompts">
+      <div class="prompt-card">
+        <div class="prompt-text" id="promptText">Write a greeting introducing yourself to a new friend.</div>
+        <textarea id="promptInput" rows="5" placeholder="Andika hapa / Write here..."></textarea>
+        <div class="prompt-actions">
+          <button id="newPrompt" class="ghost">Shuffle Prompt</button>
+          <button id="checkPrompt" class="primary">Check</button>
+        </div>
+        <div id="promptFeedback" class="feedback" aria-live="polite"></div>
+      </div>
+      <details class="cheatsheet">
+        <summary>Beginner phrase cheatsheet</summary>
+        <div class="sheet-grid" id="cheatGrid"></div>
+      </details>
+    </section>
+
+    <!-- Progress -->
+    <section id="progress" class="panel" role="tabpanel" aria-labelledby="Progress">
+      <div class="stats">
+        <div class="stat"><div class="num" id="statSeen">0</div><div class="label">Cards Seen</div></div>
+        <div class="stat"><div class="num" id="statMastered">0</div><div class="label">Mastered</div></div>
+        <div class="stat"><div class="num" id="statStreak">0</div><div class="label">Current Streak</div></div>
+      </div>
+      <canvas id="historyChart" width="700" height="300" aria-label="Study history chart" role="img"></canvas>
+      <div class="export">
+        <button id="exportBtn" class="ghost">Export My Deck</button>
+        <input type="file" id="importInput" accept=".json" style="display:none"/>
+        <button id="importBtn" class="ghost">Import Deck</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal for adding terms -->
+  <dialog id="addDialog">
+    <form method="dialog" id="addForm">
+      <h3>Add a term</h3>
+      <label>Swahili
+        <input type="text" id="swInput" required placeholder="neno (word)"/>
+      </label>
+      <label>English
+        <input type="text" id="enInput" required placeholder="translation"/>
+      </label>
+      <label>Example (optional)
+        <input type="text" id="exInput" placeholder="sentence / mfano"/>
+      </label>
+      <menu>
+        <button value="cancel">Cancel</button>
+        <button value="confirm" class="primary">Save</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <footer>
+    <small>Made for beginner learners. Data stored locally in your browser. 🇰🇪🇹🇿</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
