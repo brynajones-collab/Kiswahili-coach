@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kiswahili Coach</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="manifest" href="manifest.webmanifest"/>
+  <meta name="theme-color" content="#2f6ae0"/>
+</head>
+<body>
+  <header class="app-header">
+    <h1>Kiswahili Coach</h1>
+  </header>
+  <main>
+    <p>Interactive Kiswahili learning app — flashcards, matching, prompts.</p>
+    <div id="app"></div>
+  </main>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(console.error);
+      });
+    }
+  </script>
+</body>
+</html>
